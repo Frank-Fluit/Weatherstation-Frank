@@ -4,7 +4,7 @@
 
 This project has been set up to prepare for a working assignment which will use the Python Django framework, Python package Numpy and te Python Package Panda's in the context of hydrology. Greating an entire hydrological models seems a lit to ambitous, so as a result has been decided to create a simple weather station application, where can be practiced with all relevant technologies.
 
-The goal of this project is to build a simple web application where users can fill in their own personal weather observations. This data can then be used to perform various operations on such as statistical analyses,  generating visualizations, and compare their data to data input by other users. This application should work with users accounts and the data should be saved in a database.  
+The goal of this project is to build a simple web application where users can fill in their own personal weather observations. This data can then be used to perform various operations on such as statistical analyses, generating visualizations, and compare their data to data input by other users. This application should work with users accounts and the data should be saved in a database.  
 
 ## MoSCoW
 
