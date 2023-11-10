@@ -5,6 +5,32 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [jsonResponse, setJsonResponse] = useState(null);
+  
+
+
+  async function getHello() {
+    try {
+      const response = await fetch("api/users/hello/", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        
+      });
+
+      if (response.ok) {
+        const jsonresponse = await response.json();
+        setJsonResponse(jsonresponse.message);
+        
+      } else {
+        console.error(`HTTP error! Status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Fetch error:', error);
+    }
+  }
 
   return (
     <>
@@ -19,14 +45,22 @@ function App() {
       <h1>Vite + React</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+          count is this {count}
         </button>
+
+        <button onClick={() => getHello()}>
+          click this to test the http request
+        </button>
+
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
+      </p>
+      <p>
+        This is the result of the get request {jsonResponse}
       </p>
     </>
   )
