@@ -12,7 +12,6 @@ The goal of this project is to build a simple web application where users can fi
 Users can fill in temperature data
 Users fill in location data
 Basic statistical information will be given to the users
-Users can make their own accounts
 Data will be stored in the database
 Data should be validated on realistic ranges (such as no temperature above 55 C in NL )
 
@@ -29,6 +28,7 @@ Make a map visualization that shows the locations of all visualisations
 Users can add comments to their visualisations
 Download historical data to validate data
 Download weather reports
+Users can make their own accounts
 
 
 ### Woulds/Wont's:
