@@ -6,6 +6,10 @@ import './App.css'
 function App() {
   const [count, setCount] = useState(0)
   const [jsonResponse, setJsonResponse] = useState(null);
+  const [makeUserResponse, setMakeUserResponse] = useState(null);
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   
 
 
@@ -32,6 +36,43 @@ function App() {
     }
   }
 
+  async function postData() {
+
+    const userData = {
+      username: 'example_user2',
+      password: 'secure_password2',
+      email: 'user@example2.com',
+    };
+
+    try {
+      setLoading(true);
+      setError(null);
+  
+      const response = await fetch("api/users/register/", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        // You can include a JSON payload in the body if needed
+        body: JSON.stringify(userData),
+      });
+  
+      if (response.ok) {
+        const makeUserResponse = await response.json();
+        setMakeUserResponse(makeUserResponse.message);
+      } else {
+        console.error(`HTTP error! Status: ${response.status}`);
+       
+      }
+    } catch (error) {
+      console.error('Fetch error:', error);
+      
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <>
       <div>
@@ -50,6 +91,9 @@ function App() {
 
         <button onClick={() => getHello()}>
           click this to test the http request
+        </button>
+        <button onClick={() => postData()} disabled={loading}>
+          {loading ? 'Loading...' : 'Click to test the HTTP POST request'}
         </button>
 
         <p>
