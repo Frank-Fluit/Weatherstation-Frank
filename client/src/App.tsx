@@ -1,17 +1,18 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import reactLogo from './assets/react.svg';
+import viteLogo from '/vite.svg';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
   const [jsonResponse, setJsonResponse] = useState(null);
   const [makeUserResponse, setMakeUserResponse] = useState(null);
-
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  
-
+  const [userData, setUserData] = useState({
+    username: '',
+    password: '',
+    email: '',
+  });
 
   async function getHello() {
     try {
@@ -21,13 +22,11 @@ function App() {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        
       });
 
       if (response.ok) {
         const jsonresponse = await response.json();
         setJsonResponse(jsonresponse.message);
-        
       } else {
         console.error(`HTTP error! Status: ${response.status}`);
       }
@@ -37,41 +36,38 @@ function App() {
   }
 
   async function postData() {
-
-    const userData = {
-      username: 'example_user2',
-      password: 'secure_password2',
-      email: 'user@example2.com',
-    };
-
     try {
       setLoading(true);
-      setError(null);
-  
+
       const response = await fetch("api/users/register/", {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        // You can include a JSON payload in the body if needed
         body: JSON.stringify(userData),
       });
-  
+
       if (response.ok) {
         const makeUserResponse = await response.json();
         setMakeUserResponse(makeUserResponse.message);
       } else {
         console.error(`HTTP error! Status: ${response.status}`);
-       
       }
     } catch (error) {
       console.error('Fetch error:', error);
-      
     } finally {
       setLoading(false);
     }
   }
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      [name]: value,
+    }));
+  };
 
   return (
     <>
@@ -92,6 +88,34 @@ function App() {
         <button onClick={() => getHello()}>
           click this to test the http request
         </button>
+
+        <label>
+          Username:
+          <input
+            type="text"
+            name="username"
+            value={userData.username}
+            onChange={handleInputChange}
+          />
+        </label>
+        <label>
+          Password:
+          <input
+            type="password"
+            name="password"
+            value={userData.password}
+            onChange={handleInputChange}
+          />
+        </label>
+        <label>
+          Email:
+          <input
+            type="email"
+            name="email"
+            value={userData.email}
+            onChange={handleInputChange}
+          />
+        </label>
         <button onClick={() => postData()} disabled={loading}>
           {loading ? 'Loading...' : 'Click to test the HTTP POST request'}
         </button>
@@ -107,7 +131,7 @@ function App() {
         This is the result of the get request {jsonResponse}
       </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
