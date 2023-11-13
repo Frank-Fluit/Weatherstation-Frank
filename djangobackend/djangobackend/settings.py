@@ -131,3 +131,13 @@ CORS_ALLOWED_ORIGINS = [
 
 # Optional: Allow credentials (cookies, authorization headers, etc.)
 CORS_ALLOW_CREDENTIALS = True
+
+# This is a customized user model I use so I can modify the fields
+AUTH_USER_MODEL = 'users.CustomUser'
+
+
+
+# This is also the standard implementation
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
