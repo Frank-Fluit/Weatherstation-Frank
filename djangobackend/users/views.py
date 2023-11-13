@@ -14,6 +14,7 @@ class UserRegistrationView(generics.CreateAPIView):
 
 
 # Create your views here.
+
 # request handlers, weird name huh
 
 @csrf_exempt
