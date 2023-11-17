@@ -1,4 +1,3 @@
-// CsvUploadForm.tsx
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 
 const CsvUploadForm: React.FC = () => {
@@ -13,7 +12,6 @@ const CsvUploadForm: React.FC = () => {
   const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Perform actions with the CSV file, such as sending it to the server
     if (csvFile) {
       const formData = new FormData();
       formData.append('csv_file', csvFile);
