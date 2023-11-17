@@ -1,5 +1,9 @@
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
+from django.http import HttpResponse
+##from analysis.service import AnalysisService
+import pandas as pd
 
 
 def index(request):
@@ -12,7 +16,14 @@ def say_hello(request):
     return JsonResponse(data)
 
 
+
+
+
 @csrf_exempt
 def csv_processing(request):
-    data = {'message': 'Hello from the first analyses endpoint for csvs!'}
-    return JsonResponse(data)
+    if request.method == 'POST' and request.FILES.get('csv_file'):
+        csv_file = request.FILES['csv_file']
+        results = AnalysisService.analyze_csv(csv_file)
+        return HttpResponse(f"Analysis Results: {results}")
+
+    return HttpResponse("Upload CSV File")
