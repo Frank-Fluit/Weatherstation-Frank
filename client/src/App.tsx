@@ -4,9 +4,12 @@ import { useState } from 'react';
 import raincloud from '/raincloud.png'
 import './App.css';
 
+import CsvUploadForm from './components/CsvUploadForm';
+
 function App() {
 
   const [, setMakeUserResponse] = useState(null);
+  const [stats,setstats] = useState(null)
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState({
     username: '',
@@ -43,6 +46,7 @@ function App() {
       setLoading(false);
     }
   }
+
 
   const handleInputChange = (e: { target: { name: any; value: any; }; }) => {
     const { name, value } = e.target;
@@ -135,6 +139,9 @@ function App() {
         <button onClick={() => postData()} disabled={loading}>
           {loading ? 'Loading...' : 'login'}
         </button>
+
+
+        <CsvUploadForm />
 
 
       </div>
