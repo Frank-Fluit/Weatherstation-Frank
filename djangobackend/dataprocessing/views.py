@@ -1,8 +1,7 @@
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse
-from django.http import HttpResponse
-##from analysis.service import AnalysisService
+from domainlogic.AnalysisService import AnalysisService
+
 import pandas as pd
 
 
