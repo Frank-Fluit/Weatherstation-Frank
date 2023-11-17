@@ -23,6 +23,7 @@ def csv_processing(request):
     if request.method == 'POST' and request.FILES.get('csv_file'):
         csv_file = request.FILES['csv_file']
         results = AnalysisService.analyze_csv(csv_file)
+        print("we are in the view right now")
         return HttpResponse(f"Analysis Results: {results}")
 
     return HttpResponse("Upload CSV File")
