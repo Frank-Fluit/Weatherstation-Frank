@@ -3,6 +3,7 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 const CsvUploadForm: React.FC = () => {
   const [csvFile, setCsvFile] = useState<File | null>(null);
   const [message, setMessage] = useState<string | null>(null);
+  const [data, setData] = useState<string | null>(null);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -24,6 +25,7 @@ const CsvUploadForm: React.FC = () => {
 
         if (response.ok) {
           const data = await response.json();
+          setData(data)
           setMessage(data.message);
         } else {
           const errorData = await response.json();
@@ -55,6 +57,14 @@ const CsvUploadForm: React.FC = () => {
       </form>
 
       {message && <div className="mt-4">{message}</div>}
+
+{data && (
+  <div className="mt-4" style={{ textAlign: 'left' }}>
+    <h3>Data:</h3>
+    <pre>{JSON.stringify(data, null, 2)}</pre>
+  </div>
+)}
+
     </div>
   );
 };
