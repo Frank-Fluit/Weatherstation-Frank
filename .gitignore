@@ -1,0 +1,14 @@
+# Ignore compiled Python files
+*.pyc
+
+# Ignore virtual environment
+venv/
+
+# Ignore database files
+db.sqlite3
+
+# Ignore logs
+logs/
+
+#ignore inteliji files
+.idea

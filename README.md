@@ -10,7 +10,6 @@ The goal of this project is to build a simple web application where users can fi
 
 ### Musts
 Users can fill in temperature data
-Users fill in location data
 Basic statistical information will be given to the users
 Data will be stored in the database
 Data should be validated on realistic ranges (such as no temperature above 55 C in NL )

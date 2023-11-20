@@ -3,7 +3,6 @@
 import os
 import sys
 
-
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'djangobackend.settings')
@@ -17,6 +16,9 @@ def main():
         ) from exc
     execute_from_command_line(sys.argv)
 
-
 if __name__ == '__main__':
+    # Adding the parent directory of the current file to sys.path
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    sys.path.append(os.path.join(BASE_DIR, '..'))
+
     main()
