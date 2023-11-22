@@ -1,29 +1,29 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.http import JsonResponse
+from django.contrib.auth.hashers import make_password
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework import generics
-from rest_framework.response import Response
-from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
 from .serializers import UserRegistrationSerializer
+from rest_framework import status, viewsets
+from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 
 
-# should potentially add the csrf exempt option here
-class UserRegistrationView(generics.CreateAPIView):
-    serializer_class = UserRegistrationSerializer
-
-
-# Create your views here.
-
-# request handlers, weird name huh
-
+@permission_classes([AllowAny])
 @csrf_exempt
-def say_hello(request):
-    data = {'message': 'Hello from the server!'}
-    return JsonResponse(data)
+@api_view(['POST'])
+def user_registration_view(request):
+    print(request.user)
+    if request.method == 'POST':
+        request.data['password'] = make_password(request.data.get('password'))
 
-## After this this view has to be mapped to a url -> urls.py (name does not matter, but 
-# is convention)
+        serializer = UserRegistrationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# View for user registration is performed here
+    return Response({'detail': 'Method not allowed'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+
+
 

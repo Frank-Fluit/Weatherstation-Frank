@@ -1,12 +1,7 @@
-from django.db import models
-
-# Create your models here.
-# users/models.py
-
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, PermissionsMixin
 
 
-class CustomUser(AbstractUser):
+class CustomUser(AbstractUser, PermissionsMixin):
     # Add custom fields here if needed
     class Meta:
         pass
