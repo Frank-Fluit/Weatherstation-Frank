@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 
-const CsvUploadForm: React.FC = () => {
+const UserProfile: React.FC = () => {
   const [csvFile, setCsvFile] = useState<File | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [data, setData] = useState<string | null>(null);
@@ -69,4 +69,4 @@ const CsvUploadForm: React.FC = () => {
   );
 };
 
-export default CsvUploadForm;
+export default UserProfile;

@@ -33,6 +33,43 @@ const UserRegistrationForm: React.FC = () => {
     }
   };
 
+
+
+
+
+
+
+    const testHelloEndpoint = async () => {
+    try {
+
+
+      const response = await fetch("api/users/hello/", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+
+        console.log('hello was retrieved');
+
+      } else {
+        console.error(`HTTP error! Status: ${response.status}`);
+
+      }
+    } catch (error) {
+      console.error('Fetch error:', error);
+    }
+  };
+
+
+
+
+
+
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUserData((prevUserData) => ({
@@ -78,6 +115,13 @@ const UserRegistrationForm: React.FC = () => {
       <button onClick={createNewUser} disabled={loading}>
         {loading ? 'Loading...' : 'Register'}
       </button>
+
+
+      <button onClick={testHelloEndpoint} disabled={loading}>
+
+
+      </button>
+
     </div>
   );
 };

@@ -39,19 +39,44 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'corsheaders',
-    'debug_toolbar'
+    'debug_toolbar',
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
+
+
+#To be activated when user can be created without authentication
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+#     ],
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework.authentication.SessionAuthentication',
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     )
+# }
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
+}
+
 MIDDLEWARE = [
+
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+
+
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware'
+    'corsheaders.middleware.CorsMiddleware',
+'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'djangobackend.urls'
@@ -74,7 +99,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'djangobackend.wsgi.application'
 
+CORS_ALLOW_ALL_ORIGINS = True
 
+CSRF_COOKIE_SECURE = False  # Set to True for secure connections (HTTPS)
+CSRF_COOKIE_SAMESITE = None  # Allow CSRF cookies for cross-site requests
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -127,9 +155,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # or the origin of your React app
-]
+
 
 # Optional: Allow credentials (cookies, authorization headers, etc.)
 CORS_ALLOW_CREDENTIALS = True
@@ -137,7 +163,7 @@ CORS_ALLOW_CREDENTIALS = True
 # This is a customized user model I use so I can modify the fields
 AUTH_USER_MODEL = 'users.CustomUser'
 
-
+DJANGO_SETTINGS_MODULE = 'djangobackend.settings'
 
 # This is also the standard implementation
 AUTHENTICATION_BACKENDS = [
