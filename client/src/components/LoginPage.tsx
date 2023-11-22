@@ -22,15 +22,9 @@ const Login = () => {
 
       if (response.ok) {
         const data = await response.json();
-        // Assuming the backend returns a token
+        
         console.log('Login successful. Token:', data.token);
         navigate('/userprofile');
-
-
-
-        // Navigate to the /CsvUploadForm route
-        //navigate('/CsvUploadForm');
-
 
 
       } else {
