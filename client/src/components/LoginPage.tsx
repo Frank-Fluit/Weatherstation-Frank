@@ -22,7 +22,7 @@ const Login = () => {
 
       if (response.ok) {
         const data = await response.json();
-        
+
         console.log('Login successful. Token:', data.token);
         navigate('/userprofile');
 
