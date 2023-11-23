@@ -1,5 +1,7 @@
 # Ignore compiled Python files
 *.pyc
+__pycache__/
+
 
 # Ignore virtual environment
 venv/
@@ -12,3 +14,7 @@ logs/
 
 #ignore inteliji files
 .idea
+
+#Ignore node modules
+node_modules
+
