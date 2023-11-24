@@ -39,7 +39,8 @@ def perform_analysis(csv_data):
 
 def clean_data(data):
     data = data.drop_duplicates()
-    data.dropna()
+    data = data.dropna()
+
     filtered_data = data[(data['temp'] >= -20) & (data['temp'] <= 55)]
     filtered_data = filtered_data[(filtered_data['feelslike'] >= -30) & (filtered_data['feelslike'] <= 60)]
     filtered_data = filtered_data[(filtered_data['humidity'] >= 0) & (filtered_data['humidity'] <= 100)]
@@ -47,3 +48,14 @@ def clean_data(data):
     filtered_data = filtered_data[(filtered_data['solarradiation'] >= 0)]
 
     return filtered_data
+
+
+def drop_and_clean(csv_data):
+    data = pd.read_csv(csv_data)
+    data = data[['name', 'datetime', 'temp', 'windspeed']]
+    data = data.drop_duplicates()
+
+    to_be_logged_data = data.dropna()
+    to_be_logged_data = to_be_logged_data[(to_be_logged_data['temp'] >= -20) & (to_be_logged_data['temp'] <= 55)]
+
+    return to_be_logged_data

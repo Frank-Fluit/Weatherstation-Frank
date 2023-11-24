@@ -6,11 +6,11 @@ class Location(models.Model):
 
 class WindSpeed(models.Model):
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
-    windspeed = models.IntegerField(default=0)
-    timestamp = models.DateTimeField(auto_now_add=True)
+    windspeed = models.FloatField(default=0.0)
+    timestamp = models.DateTimeField()
 
 class Temperature(models.Model):
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
-    temperature = models.IntegerField(default=0)
-    timestamp = models.DateTimeField(auto_now_add=True)
+    temperature = models.FloatField(default=0.0)
+    timestamp = models.DateTimeField()
 
