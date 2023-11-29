@@ -40,7 +40,7 @@ const SaveDataToDatabase: React.FC = () => {
 
   return (
     <div className="my-4">
-      <h2 className="text-xl font-semibold">Data saving in database</h2>
+      <h2 className="text-xl font-semibold">Quick data analysis without saving</h2>
       <form onSubmit={handleFormSubmit}>
         <input
           type="file"
@@ -52,7 +52,7 @@ const SaveDataToDatabase: React.FC = () => {
           type="submit"
           className="bg-blue-500 text-white px-4 py-2 mt-2 rounded"
         >
-          Upload CSV for quick analysis
+          quick no save analysis
         </button>
       </form>
 
