@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 
-const SaveDataToDatabase: React.FC = () => {
+const DataComparedToDatabaseData: React.FC = () => {
   const [csvFile, setCsvFile] = useState<File | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [data, setData] = useState<string | null>(null);
@@ -18,7 +18,7 @@ const SaveDataToDatabase: React.FC = () => {
       formData.append('csv_file', csvFile);
 
       try {
-        const response = await fetch("api/dataprocessing/csv/", {
+        const response = await fetch("api/dataprocessing/compare/", {
           method: 'POST',
           body: formData,
         });
@@ -40,7 +40,7 @@ const SaveDataToDatabase: React.FC = () => {
 
   return (
     <div className="my-4">
-      <h2 className="text-xl font-semibold">Quick data analysis without saving</h2>
+      <h2 className="text-xl font-semibold">Thorough data analysis</h2>
       <form onSubmit={handleFormSubmit}>
         <input
           type="file"
@@ -52,7 +52,7 @@ const SaveDataToDatabase: React.FC = () => {
           type="submit"
           className="bg-blue-500 text-white px-4 py-2 mt-2 rounded"
         >
-          quick no save analysis
+          Upload CSV for thorough analysis
         </button>
       </form>
 
@@ -69,4 +69,4 @@ const SaveDataToDatabase: React.FC = () => {
   );
 };
 
-export default SaveDataToDatabase
+export default DataComparedToDatabaseData
