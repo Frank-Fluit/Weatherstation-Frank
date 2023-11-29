@@ -85,7 +85,6 @@ def data_post(request):
             windspeed_instance = WindSpeed(location=location_instance, windspeed=windspeed, timestamp=datetime)
             windspeed_instance.save()
 
-
             temperature_instance = Temperature(location=location_instance, temperature=temp, timestamp=datetime)
             temperature_instance.save()
 
