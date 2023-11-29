@@ -1,5 +1,6 @@
 # Weather Station
 
+
 ## Intro Project
 
 This project has been set up to prepare for a working assignment which will use the Python Django framework, Python package Numpy and te Python Package Panda's in the context of hydrology. Greating an entire hydrological models seems a lit to ambitous, so as a result has been decided to create a simple weather station application, where can be practiced with all relevant technologies.
@@ -56,5 +57,14 @@ implement machine learning predictions
 - Ervaring opdoen met het Django framework
 - Ervaring opdoen met een Python project
 - Ervaring opdoen met numpy & pandas packages 
+
+## tests
+tests can be run by using the command from the djangobackend/dataprocessing directory, 
+where "dataprocessing" can be changed for another app name
+
+```
+python manage.py test dataprocessing.tests
+```
+
 
 
