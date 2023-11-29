@@ -15,7 +15,8 @@ application works with users accounts and the data should be saved in a database
 
 ### Current Features
 - Users can register and login (session management to be implemented)
-- Accounts are managed by built in functionality of Django
+- Frontend has a login page and a userprofile page
+- Accounts are managed, partly by built in functionality of Django (login) and partly manually implemented (registering)
 - Users can get a quick analysis of a csv data sheet (examples are in data folder)
 - Data is cleaned before analysis are run
 - Users can log temperature and windspeed data to database (currently SQLite)
