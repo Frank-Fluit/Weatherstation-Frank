@@ -58,6 +58,29 @@ implement machine learning predictions
 - Ervaring opdoen met een Python project
 - Ervaring opdoen met numpy & pandas packages 
 
+## Start Frontend server
+
+The Frontend server can be activated by running the following command in the client folder:
+```
+npm run dev
+```
+This will start a vite-server hosting the react frontend on the following adress:
+
+http://localhost:5173/
+
+## Start Backend server
+The Backend server can be activated by running the following command in the django folder:
+```
+python manage.py runserver
+
+```
+This will start a Django development server hosting the djangobackend on the following adress:
+
+http://127.0.0.1:8000/
+
+However communication with this backend is handled by the front end which uses a proxy server to talk to the backend server.
+
+
 ## tests
 tests can be run by using the command from the djangobackend/dataprocessing directory, 
 where "dataprocessing" can be changed for another app name
@@ -65,6 +88,9 @@ where "dataprocessing" can be changed for another app name
 ```
 python manage.py test dataprocessing.tests
 ```
+
+
+
 
 
 
