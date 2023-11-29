@@ -23,18 +23,10 @@ The goal of this project is to build a simple web application where users can fi
 
 
 
-
-
-
-## Persoonlijk Leerdoelen (proces)
-- Meer zelfstandig werken?
-- Het grote plaatje in het oog blijven houden
-
-
-## Technisch Leerdoel (tools, frameworks, etc.):
-- Ervaring opdoen met het Django framework
-- Ervaring opdoen met een Python project
-- Ervaring opdoen met numpy & pandas packages 
+## Technical learninggoals (tools, frameworks, etc.):
+- Getting experience with the Django Framework
+- Getting more experience with a Python project
+- Getting experience with the numpy & pandas packages 
 
 ## Start Frontend server
 
@@ -59,42 +51,42 @@ http://127.0.0.1:8000/
 However communication with this backend is handled by the front end which uses a proxy server to talk to the backend server.
 
 
-## tests
-tests can be run by using the command from the djangobackend/dataprocessing directory, 
-where "dataprocessing" can be changed for another app name
+## Tests
+Tests can be run by using the command from the djangobackend/dataprocessing directory, 
+here "dataprocessing" can be changed for another app name
 
 ```
 python manage.py test dataprocessing.tests
 ```
 
-## initial planning in MoSCoW format
+## Initial planning in MoSCoW format
 
 ### Musts
-Users can fill in temperature data
-Basic statistical information will be given to the users
-Data will be stored in the database
-Data should be validated on realistic ranges (such as no temperature above 55 C in NL )
+- Users can fill in temperature data
+- Basic statistical information will be given to the users
+- Data will be stored in the database
+- Data should be validated on realistic ranges (such as no temperature above 55 C in NL )
 
 ### Shoulds 
-Weather trends should be visualised
-Fancy visualizations
-More advanced analyses regressions etc.
-Users can input csv files
-Users should be able to customize a short user profile
-Generate general weather report
+- Weather trends should be visualised
+- Fancy visualizations
+- More advanced analyses regressions etc.
+- Users can input csv files
+- Users should be able to customize a short user profile
+- Generate general weather report
 
 ### Coulds
-Make a map visualization that shows the locations of all visualisations
-Users can add comments to their visualisations
-Download historical data to validate data
-Download weather reports
-Users can make their own accounts
+- Make a map visualization that shows the locations of all visualisations
+- Users can add comments to their visualisations
+- Download historical data to validate data
+- Download weather reports
+- Users can make their own accounts
 
 
 ### Woulds/Wont's:
-Sharing data reports on social media
-implement real time weather status
-implement machine learning predictions
+- Sharing data reports on social media
+- Implement real time weather status
+- Implement machine learning predictions
 
 
 
