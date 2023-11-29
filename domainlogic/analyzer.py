@@ -113,32 +113,3 @@ def calculate_kurtosis(data, column):
     cleaned_data = clean_data(data, column)
     return float(cleaned_data[column].kurt().item())
 
-
-
-
-
-
-
-# def clean_data(data):
-#     data = data.dropna()
-#
-#     filtered_data = data.copy()
-#
-#     if 'temp' in data.columns:
-#         filtered_data = filtered_data.loc[(data['temp'] >= temp_lower_limit) & (data['temp'] <= temp_upper_limit)]
-#
-#     if 'feelslike' in data.columns:
-#         filtered_data = filtered_data.loc[(filtered_data['feelslike'] >= feelslike_lower_limit) & (
-#                     filtered_data['feelslike'] <= feelslike_upper_limit)]
-#
-#     if 'humidity' in data.columns:
-#         filtered_data = filtered_data.loc[(filtered_data['humidity'] >= 0) & (filtered_data['humidity'] <= 100)]
-#
-#     if 'precip' in data.columns:
-#         filtered_data = filtered_data.loc[(filtered_data['precip'] >= 0)]
-#
-#     if 'solarradiation' in data.columns:
-#         filtered_data = filtered_data.loc[(filtered_data['solarradiation'] >= 0)]
-#
-#     return filtered_data
-
