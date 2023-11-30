@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import raincloud from '/raincloud.png'
+
 import './App.css';
 import UserProfile from './components/UserProfile';
 import UserRegistrationForm from './components/UserRegistrationForm';
