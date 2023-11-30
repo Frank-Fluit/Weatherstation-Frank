@@ -7,8 +7,9 @@ import CorrelationCalculation from "./CorrelationCalculation.tsx";
 const UserProfile: React.FC = () => {
 
   return (
-    <div className="my-4">
-      <h2 className="text-xl font-semibold">UserProfile</h2>
+    <div className="bg-red-400 p-8">
+      <h2 className="text-xl font-semibold bg-red-400">UserProfile</h2>
+
         <DataAnalysis />
         <SaveDataToDatabase />
         <DataComparedToDatabaseData/>

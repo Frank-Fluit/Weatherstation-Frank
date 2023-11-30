@@ -39,7 +39,7 @@ const SaveDataToDatabase: React.FC = () => {
   };
 
   return (
-    <div className="my-4">
+    <div className="bg-red-400">
       <h2 className="text-xl font-semibold">Quick data analysis without saving</h2>
       <form onSubmit={handleFormSubmit}>
         <input
