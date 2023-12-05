@@ -107,13 +107,24 @@ CSRF_COOKIE_SAMESITE = None  # Allow CSRF cookies for cross-site requests
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'test1',
+        'USER': 'frank',
+        'PASSWORD': 'frank',
+        # 'HOST': 'localhost',   # Set to the host where your PostgreSQL server is running
+        # 'PORT': '5432',        # Set to the port used by your PostgreSQL server
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
