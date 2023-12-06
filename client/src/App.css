@@ -1,6 +1,24 @@
+#body{
+  background-color: #8CE8F8
+}
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+
   padding: 2rem;
   text-align: center;
+  background-color: #8CE8F8
+}
+.raincloudImage {
+  width: 250px;
+  height: auto;
+}
+
+.headingBackground {
+  background-color: #8CE8F8; /* Remove single quotes around the color value */
+}
+
+.custom-text-size {
+  font-size: 3.5rem; /* Adjust the size as needed */
 }
