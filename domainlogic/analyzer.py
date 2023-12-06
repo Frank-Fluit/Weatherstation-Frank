@@ -113,3 +113,5 @@ def calculate_kurtosis(data, column):
     cleaned_data = clean_data(data, column)
     return float(cleaned_data[column].kurt().item())
 
+def square(num):
+    return num*num

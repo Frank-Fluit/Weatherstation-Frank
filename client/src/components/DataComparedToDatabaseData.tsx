@@ -43,10 +43,13 @@ const DataComparedToDatabaseData: React.FC = () => {
       <h2 className="text-xl font-semibold">Thorough data analysis</h2>
       <form onSubmit={handleFormSubmit}>
         <input
+            id="files"
           type="file"
           accept=".csv"
           onChange={handleFileChange}
           className="mt-2"
+
+
         />
         <button
           type="submit"

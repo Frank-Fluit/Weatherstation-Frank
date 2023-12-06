@@ -24,11 +24,13 @@ def compare(request):
         csv_file = request.FILES['csv_file']
         results_analyzer_input = AnalysisService.analyze_csv(csv_file)
 
+        print(results_analyzer_input)
+
         avg_windspeed_overall = WindSpeed.objects.aggregate(avg_windspeed_overall=Avg('windspeed'))['avg_windspeed_overall']
         avg_temperature_overall = Temperature.objects.aggregate(avg_temperature_overall = Avg('temperature'))['avg_temperature_overall']
 
-        avg_temperature_user = results_analyzer_input["average_temp"]["temp"]
-        avg_windspeed_user = results_analyzer_input["average_windspeed"]["windspeed"]
+        avg_temperature_user = results_analyzer_input["average_temp"]
+        avg_windspeed_user = results_analyzer_input["average_windspeed"]
 
         temperature_dif = avg_temperature_user - avg_temperature_overall
         windspeed_dif = avg_windspeed_user - avg_windspeed_overall
