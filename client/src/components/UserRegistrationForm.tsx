@@ -81,7 +81,7 @@ const UserRegistrationForm: React.FC = () => {
   return (
     <div>
       <h3>Make an account down below</h3>
-      <label>
+      <label style={{ fontWeight: 'bold' }}>
         Username:
         <input
           type="text"
@@ -91,7 +91,7 @@ const UserRegistrationForm: React.FC = () => {
         />
       </label>
 
-      <label>
+      <label style={{ fontWeight: 'bold' }}>
         Password:
         <input
           type="password"
@@ -101,7 +101,7 @@ const UserRegistrationForm: React.FC = () => {
         />
       </label>
 
-      <label>
+      <label style={{ fontWeight: 'bold' }}>
         Email:
         <input
           type="email"
@@ -117,10 +117,7 @@ const UserRegistrationForm: React.FC = () => {
       </button>
 
 
-      <button onClick={testHelloEndpoint} disabled={loading}>
 
-
-      </button>
 
     </div>
   );

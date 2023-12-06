@@ -40,19 +40,19 @@ const Login = () => {
   return (
     <div>
 
-      <h1 className="mb-4 text-8xl font-semibold">Personal Weather station</h1>
+      <h1 className="mb-4 text-8xl font-semibold headingBackground">
+        Personal Weather Station
+      </h1>
 
-         <img src={raincloud}
-            style={{ width: '300px', height: 'auto' }}>
-         </img>
+         <img src={raincloud} alt="Raincloud" className="raincloudImage" />
 
       <h2>Log, compare and analyse your weatherdata using our personal accounts!</h2>
-      <label>
+      <label style={{ fontWeight: 'bold' }}>
         Username:
         <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
       </label>
       <br />
-      <label>
+      <label style={{ fontWeight: 'bold' }}>
         Password:
         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       </label>
