@@ -1,4 +1,4 @@
-from .analyzer import *
+from ..analyzer import *
 
 
 def test_square():

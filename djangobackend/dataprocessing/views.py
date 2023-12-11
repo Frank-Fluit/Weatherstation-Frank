@@ -1,8 +1,12 @@
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from dataprocessing.models import Temperature, WindSpeed, Location
-from domainlogic.AnalysisService import AnalysisService
+#from domainlogic.AnalysisService import AnalysisService
 from django.db.models import Avg
+
+# dataprocessing/views.py
+from domainlogic.AnalysisService import AnalysisService
+
 
 import pandas as pd
 
