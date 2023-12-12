@@ -7,8 +7,17 @@ from django.db.models import Avg
 # dataprocessing/views.py
 from domainlogic.AnalysisService import AnalysisService
 import requests
+import json
 
 import pandas as pd
+
+
+
+class WeatherDTO:
+    def __init__(self, temperature, city_name):
+        self.temperature = temperature
+        self.city_name = city_name
+
 
 
 def index(request):
@@ -129,15 +138,35 @@ def get_weather_based_on_loc(request):
 #parametrise + preprocess the data
 @csrf_exempt
 def get_weather_based_on_lat_lon(request):
-    print("##")
-    lat_rotterdam = 51.926517
-    lon_rotterdam = 4.462456
-    lat = lat_rotterdam
-    lon = lon_rotterdam
-    latitude = str(lat)
-    longitude = str(lon)
+    print("-----------------------------")
+
+    data = json.loads(request.body.decode('utf-8'))
+
+    # Access the latitude and longitude
+    latitude = data.get('latitude')
+    longitude = data.get('longitude')
+
+    # Use the latitude and longitude as needed
+    print("-----------------------------")
+    print(f"Latitude: {latitude}, Longitude: {longitude}")
+    print("-----------------------------")
+    print("##############################")
+
+    latitude = str(latitude)
+    longitude = str(longitude)
     locations_api_response = requests.get("https://api.openweathermap.org/data/2.5/weather?lat="+latitude+"&lon="+longitude+"&appid=4d0a42399d252a0866c7c68630ad09ae").json()
-    print(locations_api_response)
-    print("##")
-    return JsonResponse(locations_api_response, safe = False)
-#52.14697 5.87769
+
+
+    temperature = locations_api_response.get('main', {}).get('temp')
+    city_name = locations_api_response.get('name')
+    print("-----------------------------")
+    print(f"Temperature: {temperature}, City: {city_name}")
+    print("-----------------------------")
+
+    weather_dto = WeatherDTO(temperature=temperature-272.15, city_name=city_name)
+    # Serialize the WeatherDTO object to JSON
+    serialized_data = json.dumps({'temperature': weather_dto.temperature, 'city_name': weather_dto.city_name})
+
+    # Return the JSON response
+    return JsonResponse(serialized_data, safe=False)
+
