@@ -126,14 +126,24 @@ def test_api(request):
 # parametrise! + preprocess data + add requesting in frontend + maybe separate application
 @csrf_exempt
 def get_weather_based_on_loc(request):
-    print("##")
+    data = json.loads(request.body.decode('utf-8'))
+    city = data.get("city")
+    countryCode = data.get("countryCode")
+
+    print("------------------------------------------------------")
+    print(f"City: {city}, countryCode: {countryCode}")
+    print("------------------------------------------------------")
     location = "Rotterdam"
     country = "nl"
 
-    locations_api_response = requests.get("http://api.openweathermap.org/data/2.5/weather?q="+location+","+country+"&APPID=4d0a42399d252a0866c7c68630ad09ae").json()
-    print(locations_api_response)
+    locations_api_response = requests.get("http://api.openweathermap.org/data/2.5/weather?q="+city+","+countryCode+"&APPID=4d0a42399d252a0866c7c68630ad09ae").json()
+    temperature = locations_api_response.get('main', {}).get('temp')
+    city_name = locations_api_response.get('name')
+
+    weather_dto = WeatherDTO(temperature=temperature - 272.15, city_name=city_name)
+    serialized_data = json.dumps({'temperature': weather_dto.temperature, 'city_name': weather_dto.city_name})
     print("##")
-    return JsonResponse(locations_api_response, safe = False)
+    return JsonResponse(serialized_data, safe=False)
 
 #parametrise + preprocess the data
 @csrf_exempt
