@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 const GetLocalWeatherByLocation = () => {
   const [city, setCity] = useState('');
   const [countryCode, setCountryCode] = useState('');
+  const [data, setData] = useState<string | null>(null);
 
 
   const handleRequest = async () => {
@@ -19,6 +20,7 @@ const GetLocalWeatherByLocation = () => {
 
       if (response.ok) {
         const data = await response.json();
+        setData(data)
 
         console.log("request succesful");
 
@@ -46,6 +48,7 @@ const GetLocalWeatherByLocation = () => {
       </label>
       <br />
       <button onClick={handleRequest}>GetLocalWeather</button>
+        {data}
 
     </div>
   );
