@@ -6,7 +6,7 @@ from django.db.models import Avg
 
 # dataprocessing/views.py
 from domainlogic.AnalysisService import AnalysisService
-
+import requests
 
 import pandas as pd
 
@@ -98,3 +98,46 @@ def data_post(request):
         return HttpResponse("Your data has been uploaded")
 
     return HttpResponse("Upload CSV File")
+
+@csrf_exempt
+def test_api(request):
+    response = requests.get('http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=4d0a42399d252a0866c7c68630ad09ae').json()
+    print(response)
+    return JsonResponse(response, safe = False)
+
+# @csrf_exempt
+# def get_loc_based_on_lat_lon(request):
+#     print("##")
+#     locations_api_response = requests.get('http://api.openweathermap.org/geo/1.0/reverse?lat=52.14697&lon=5.87769&limit=5&appid=4d0a42399d252a0866c7c68630ad09ae').json()
+#     print(locations_api_response)
+#     print("##")
+#     return JsonResponse(locations_api_response, safe = False)
+
+
+# parametrise! + preprocess data + add requesting in frontend + maybe separate application
+@csrf_exempt
+def get_weather_based_on_loc(request):
+    print("##")
+    location = "Rotterdam"
+    country = "nl"
+
+    locations_api_response = requests.get("http://api.openweathermap.org/data/2.5/weather?q="+location+","+country+"&APPID=4d0a42399d252a0866c7c68630ad09ae").json()
+    print(locations_api_response)
+    print("##")
+    return JsonResponse(locations_api_response, safe = False)
+
+#parametrise + preprocess the data
+@csrf_exempt
+def get_weather_based_on_lat_lon(request):
+    print("##")
+    lat_rotterdam = 51.926517
+    lon_rotterdam = 4.462456
+    lat = lat_rotterdam
+    lon = lon_rotterdam
+    latitude = str(lat)
+    longitude = str(lon)
+    locations_api_response = requests.get("https://api.openweathermap.org/data/2.5/weather?lat="+latitude+"&lon="+longitude+"&appid=4d0a42399d252a0866c7c68630ad09ae").json()
+    print(locations_api_response)
+    print("##")
+    return JsonResponse(locations_api_response, safe = False)
+#52.14697 5.87769
