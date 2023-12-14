@@ -1,10 +1,26 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
+import { Vega } from 'react-vega';
+
 
 const CorrelationCalculation: React.FC = () => {
   const [csvFile1, setCsvFile1] = useState<File | null>(null);
   const [csvFile2, setCsvFile2] = useState<File | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [data, setData] = useState<string | null>(null);
+
+
+
+  const spec = {
+  // Your Vega-Lite specification goes here
+  // Example:
+  mark: 'bar',
+  encoding: {
+    x: { field: 'category', type: 'ordinal' },
+    y: { field: 'value', type: 'quantitative' }
+  }
+};
+
+
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>, fileNumber: number) => {
     const file = e.target.files?.[0];
