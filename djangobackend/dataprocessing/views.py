@@ -164,9 +164,9 @@ def get_weather_based_on_lat_lon(request):
     except (json.JSONDecodeError, requests.RequestException) as e:
         return JsonResponse({'error': str(e)}, status=500)
 
-@csrf_exempt
-def get_weather_map(request):
-    # make map request here
+# @csrf_exempt
+# def get_weather_map(request):
+#     # make map request here
 
 def get_data_ex_api_loc(city, country_code):
     api_url = f"{API_BASE_URL}?q={city},{country_code}&APPID={API_KEY}"
