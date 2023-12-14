@@ -1,15 +1,15 @@
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from dataprocessing.dtos import WeatherDTO
 from dataprocessing.models import Temperature, WindSpeed, Location
-#from domainlogic.AnalysisService import AnalysisService
 from django.db.models import Avg
-
-# dataprocessing/views.py
 from domainlogic.AnalysisService import AnalysisService
 import requests
+import json
 
-import pandas as pd
 
+API_KEY = "4d0a42399d252a0866c7c68630ad09ae"
+API_BASE_URL = "http://api.openweathermap.org/data/2.5/weather"
 
 def index(request):
     return HttpResponse("Hello, world. You're at the dataprocessing index.")
@@ -24,14 +24,15 @@ def say_hello(request):
 @csrf_exempt
 def compare(request):
     if request.method == 'POST' and request.FILES.get('csv_file'):
-
         csv_file = request.FILES['csv_file']
         results_analyzer_input = AnalysisService.analyze_csv(csv_file)
 
         print(results_analyzer_input)
 
-        avg_windspeed_overall = WindSpeed.objects.aggregate(avg_windspeed_overall=Avg('windspeed'))['avg_windspeed_overall']
-        avg_temperature_overall = Temperature.objects.aggregate(avg_temperature_overall = Avg('temperature'))['avg_temperature_overall']
+        avg_windspeed_overall = WindSpeed.objects.aggregate(
+            avg_windspeed_overall=Avg('windspeed'))['avg_windspeed_overall']
+        avg_temperature_overall = Temperature.objects.aggregate(
+            avg_temperature_overall=Avg('temperature'))['avg_temperature_overall']
 
         avg_temperature_user = results_analyzer_input["average_temp"]
         avg_windspeed_user = results_analyzer_input["average_windspeed"]
@@ -48,7 +49,6 @@ def compare(request):
             "temp_windspeed": windspeed_dif
         }
 
-
         return JsonResponse(results)
     return HttpResponse("Upload CSV File")
 
@@ -61,6 +61,7 @@ def csv_processing(request):
         return JsonResponse(results)
 
     return HttpResponse("Upload CSV File")
+
 
 @csrf_exempt
 def correlation(request):
@@ -80,7 +81,6 @@ def data_post(request):
         wind_temp_df = AnalysisService.prepare_for_database(csv_file)
 
         for index, row in wind_temp_df.iterrows():
-
             name = row['name']
             datetime = row['datetime']
             temp = row['temp']
@@ -88,56 +88,99 @@ def data_post(request):
 
             location_instance, created = Location.objects.get_or_create(location=name)
 
-            windspeed_instance = WindSpeed(location=location_instance, windspeed=windspeed, timestamp=datetime)
+            windspeed_instance = WindSpeed(location=location_instance,
+                                           windspeed=windspeed, timestamp=datetime)
             windspeed_instance.save()
 
-            temperature_instance = Temperature(location=location_instance, temperature=temp, timestamp=datetime)
+            temperature_instance = Temperature(location=location_instance,
+                                               temperature=temp, timestamp=datetime)
             temperature_instance.save()
-
 
         return HttpResponse("Your data has been uploaded")
 
     return HttpResponse("Upload CSV File")
 
+
 @csrf_exempt
 def test_api(request):
-    response = requests.get('http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=4d0a42399d252a0866c7c68630ad09ae').json()
+    response = requests.get(
+        'http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=' + API_KEY).json()
     print(response)
-    return JsonResponse(response, safe = False)
-
-# @csrf_exempt
-# def get_loc_based_on_lat_lon(request):
-#     print("##")
-#     locations_api_response = requests.get('http://api.openweathermap.org/geo/1.0/reverse?lat=52.14697&lon=5.87769&limit=5&appid=4d0a42399d252a0866c7c68630ad09ae').json()
-#     print(locations_api_response)
-#     print("##")
-#     return JsonResponse(locations_api_response, safe = False)
+    return JsonResponse(response, safe=False)
 
 
-# parametrise! + preprocess data + add requesting in frontend + maybe separate application
+
 @csrf_exempt
 def get_weather_based_on_loc(request):
-    print("##")
-    location = "Rotterdam"
-    country = "nl"
 
-    locations_api_response = requests.get("http://api.openweathermap.org/data/2.5/weather?q="+location+","+country+"&APPID=4d0a42399d252a0866c7c68630ad09ae").json()
-    print(locations_api_response)
-    print("##")
-    return JsonResponse(locations_api_response, safe = False)
+    try:
+        data = json.loads(request.body.decode('utf-8'))
+        city = data.get("city")
+        country_code = data.get("countryCode")
 
-#parametrise + preprocess the data
+        locations_api_response = get_data_ex_api_loc(city, country_code)
+
+        temperature = locations_api_response.get('main', {}).get('temp')
+        if temperature is None:
+            return JsonResponse({'error': 'Temperature data not available'}, status=500)
+
+        city_name = locations_api_response.get('name')
+
+        weather_dto = WeatherDTO(temperature=round(temperature - 272.15, 2), city_name=city_name)
+        serialized_data = json.dumps({'temperature': weather_dto.temperature, 'city_name': weather_dto.city_name})
+
+        return JsonResponse(serialized_data, safe=False)
+
+    except requests.RequestException as e:
+
+        return JsonResponse({'error': str(e)}, status=500)
+
+
+
 @csrf_exempt
 def get_weather_based_on_lat_lon(request):
-    print("##")
-    lat_rotterdam = 51.926517
-    lon_rotterdam = 4.462456
-    lat = lat_rotterdam
-    lon = lon_rotterdam
-    latitude = str(lat)
-    longitude = str(lon)
-    locations_api_response = requests.get("https://api.openweathermap.org/data/2.5/weather?lat="+latitude+"&lon="+longitude+"&appid=4d0a42399d252a0866c7c68630ad09ae").json()
-    print(locations_api_response)
-    print("##")
-    return JsonResponse(locations_api_response, safe = False)
-#52.14697 5.87769
+
+    try:
+        data = json.loads(request.body.decode('utf-8'))
+
+        latitude = str(data.get('latitude'))
+        longitude = str(data.get('longitude'))
+
+        api_data = get_weather_data_by_lat_lon(latitude, longitude)
+
+
+        temperature = api_data.get('main', {}).get('temp')
+        if temperature is None:
+            return JsonResponse({'error': 'Temperature data not available'}, status=500)
+
+        city_name = api_data.get('name')
+
+        weather_dto = WeatherDTO(temperature=round(temperature - 272.15, 2), city_name=city_name)
+        serialized_data = json.dumps({'temperature': weather_dto.temperature,
+                                      'city_name': weather_dto.city_name})
+
+        return JsonResponse(serialized_data, safe=False)
+
+    except (json.JSONDecodeError, requests.RequestException) as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+@csrf_exempt
+def get_weather_map(request):
+    # make map request here
+
+def get_data_ex_api_loc(city, country_code):
+    api_url = f"{API_BASE_URL}?q={city},{country_code}&APPID={API_KEY}"
+    response = requests.get(api_url).json()
+    return response
+
+def get_weather_data_by_lat_lon(latitude, longitude):
+    try:
+        api_url = f"{API_BASE_URL}?lat={latitude}&lon={longitude}&appid={API_KEY}"
+        response = requests.get(api_url)
+        response.raise_for_status()
+        return response.json()
+    except requests.RequestException as e:
+        raise e
+
+
+
