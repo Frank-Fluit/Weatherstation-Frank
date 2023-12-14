@@ -6,6 +6,7 @@ import CorrelationCalculation from "./CorrelationCalculation.tsx";
 import GetLocalWeather from "./GetLocalWeather.tsx";
 import GetLocalWeatherByLocation from "./GetLocalWeatherByLocation.tsx";
 import VegaLite from "./Vegalite.tsx";
+import Vegalitetwo from "./Vegalitetwo.tsx";
 
 
 const UserProfile: React.FC = () => {
@@ -22,6 +23,7 @@ const UserProfile: React.FC = () => {
       <br /><br />
 
         <VegaLite/>
+      <Vegalitetwo/>
 
     </div>
   );

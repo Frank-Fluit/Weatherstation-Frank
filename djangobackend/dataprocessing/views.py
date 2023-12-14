@@ -3,9 +3,12 @@ from django.views.decorators.csrf import csrf_exempt
 from dataprocessing.dtos import WeatherDTO
 from dataprocessing.models import Temperature, WindSpeed, Location
 from django.db.models import Avg
+
+from dataprocessing.services import *
 from domainlogic.AnalysisService import AnalysisService
 import requests
 import json
+import datetime
 
 
 API_KEY = "4d0a42399d252a0866c7c68630ad09ae"
@@ -164,23 +167,40 @@ def get_weather_based_on_lat_lon(request):
     except (json.JSONDecodeError, requests.RequestException) as e:
         return JsonResponse({'error': str(e)}, status=500)
 
-# @csrf_exempt
-# def get_weather_map(request):
-#     # make map request here
 
-def get_data_ex_api_loc(city, country_code):
-    api_url = f"{API_BASE_URL}?q={city},{country_code}&APPID={API_KEY}"
-    response = requests.get(api_url).json()
-    return response
 
-def get_weather_data_by_lat_lon(latitude, longitude):
+
+
+@csrf_exempt
+def get_weather_pred_loc(request):
+    data = json.loads(request.body.decode('utf-8'))
+    city = data.get("city")
+    country_code = data.get("countryCode")
+
+    latitude, longitude = get_lat_lon_based_loc(city,country_code)
+
+    api_data = get_ex_api_lat_lon_pred(latitude,longitude)
+
+    return JsonResponse(api_data, safe=False)
+
+
+
+@csrf_exempt
+def get_prediciton_based_on_lat_lon(request):
+
     try:
-        api_url = f"{API_BASE_URL}?lat={latitude}&lon={longitude}&appid={API_KEY}"
-        response = requests.get(api_url)
-        response.raise_for_status()
-        return response.json()
-    except requests.RequestException as e:
-        raise e
+        data = json.loads(request.body.decode('utf-8'))
+
+        latitude = str(data.get('latitude'))
+        longitude = str(data.get('longitude'))
+
+        api_data = get_ex_api_lat_lon_pred(latitude, longitude)
+
+        return JsonResponse(api_data, safe=False)
+
+    except (json.JSONDecodeError, requests.RequestException) as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
 
 
 

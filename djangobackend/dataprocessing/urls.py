@@ -12,5 +12,8 @@ urlpatterns = [
     path('test_api/', views.test_api, name="test_api"),
     # path("get_loc_based_on_lat_lon/", views.get_loc_based_on_lat_lon, name="get_loc_based_on_lat_lon"),
     path("get_weather_based_on_loc/", views.get_weather_based_on_loc, name="get_weather_based_on_loc"),
-    path("get_weather_based_on_lat_lon/", views.get_weather_based_on_lat_lon, name="get_weather_based_on_lat_lon")
+    path("get_weather_based_on_lat_lon/", views.get_weather_based_on_lat_lon, name="get_weather_based_on_lat_lon"),
+    path("get_prediciton_based_on_lat_lon/", views.get_prediciton_based_on_lat_lon, name = "get_prediciton_based_on_lat_lon"),
+    path("get_lat_lon_based_loc/", views.get_lat_lon_based_loc, name = "get_lat_lon_based_loc"),
+    path("get_weather_pred_loc/", views.get_weather_pred_loc, name = "get_weather_pred_loc")
 ]
