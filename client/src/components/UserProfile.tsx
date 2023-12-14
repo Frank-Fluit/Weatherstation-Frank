@@ -5,6 +5,7 @@ import DataComparedToDatabaseData from "./DataComparedToDatabaseData.tsx";
 import CorrelationCalculation from "./CorrelationCalculation.tsx";
 import GetLocalWeather from "./GetLocalWeather.tsx";
 import GetLocalWeatherByLocation from "./GetLocalWeatherByLocation.tsx";
+import VegaLite from "./Vegalite.tsx";
 
 
 const UserProfile: React.FC = () => {
@@ -18,6 +19,9 @@ const UserProfile: React.FC = () => {
         <CorrelationCalculation/>
         <GetLocalWeather/>
         <GetLocalWeatherByLocation/>
+      <br /><br />
+
+        <VegaLite/>
 
     </div>
   );
